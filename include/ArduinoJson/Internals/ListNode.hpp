@@ -22,7 +22,10 @@ class ListNode {
   T content;
 
  private:
-  void init(JsonBuffer*) { next = NULL; }
+  void init(JsonBuffer*) {
+    next = NULL;
+    content = T();
+  }
 };
 }
 }
