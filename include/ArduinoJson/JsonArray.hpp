@@ -78,10 +78,6 @@ class JsonArray : public Internals::JsonPrintable<JsonArray>,
   void writeTo(Internals::JsonWriter &writer) const;
 
  private:
-  // Construction if forbidden, it must be done via JsonBuffer.
-  // Only the "invalid" instance is created with this contstructor.
-  JsonArray() { init(NULL); }
-
   // The instance returned by JsonArray::invalid()
   static JsonArray _invalid;
 };

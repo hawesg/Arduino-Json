@@ -93,10 +93,6 @@ class JsonObject : public Internals::JsonPrintable<JsonObject>,
   void writeTo(Internals::JsonWriter &writer) const;
 
  private:
-  // Construction if forbidden, it must be done via JsonBuffer.
-  // Only the "invalid" instance is created with this contstructor.
-  JsonObject();  // = delete
-
   // Returns the list node that matches the specified key.
   node_type *getNodeAt(key_type key) const;
 

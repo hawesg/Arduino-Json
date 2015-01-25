@@ -43,6 +43,10 @@ class List {
   const_iterator end() const { return const_iterator(NULL); }
 
  protected:
+  // Construction it must be done via JsonBuffer.
+  // Only "invalid" instances are created with this contstructor.
+  List() : _buffer(NULL) {}
+
   // Creates an empty List<T> attached to a JsonBuffer.
   // The JsonBuffer allows to allocate new nodes.
   // When buffer is NULL, the List is not able to grow and success() returns
