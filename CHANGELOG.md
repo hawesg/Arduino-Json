@@ -1,6 +1,12 @@
 Arduino JSON: change log
 ========================
 
+HEAD
+----
+
+* Removed placement new to improve code portability (issues #40, #45 and #46)
+* Added an Arduino example with `EthernetServer` (issue #42)
+
 v4.1
 ----
 
