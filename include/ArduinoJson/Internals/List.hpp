@@ -9,7 +9,6 @@
 #include "../JsonBuffer.hpp"
 #include "ListConstIterator.hpp"
 #include "ListIterator.hpp"
-#include "PlacementNew.hpp"
 
 namespace ArduinoJson {
 namespace Internals {
@@ -19,18 +18,13 @@ namespace Internals {
 // It is derived by JsonArray and JsonObject
 template <typename T>
 class List {
+  friend class ArduinoJson::JsonBuffer;
+
  public:
   typedef T value_type;
   typedef ListNode<T> node_type;
   typedef ListIterator<T> iterator;
   typedef ListConstIterator<T> const_iterator;
-
-  // Creates an empty List<T> attached to a JsonBuffer.
-  // The JsonBuffer allows to allocate new nodes.
-  // When buffer is NULL, the List is not able to grow and success() returns
-  // false. This is used to identify bad memory allocations and parsing
-  // failures.
-  explicit List(JsonBuffer *buffer) : _buffer(buffer), _firstNode(NULL) {}
 
   // Returns true if the object is valid
   // Would return false in the following situation:
@@ -49,10 +43,21 @@ class List {
   const_iterator end() const { return const_iterator(NULL); }
 
  protected:
+  // Creates an empty List<T> attached to a JsonBuffer.
+  // The JsonBuffer allows to allocate new nodes.
+  // When buffer is NULL, the List is not able to grow and success() returns
+  // false. This is used to identify bad memory allocations and parsing
+  // failures.
+  // This is in fact a constructor, but since we can't rely on the placement new
+  // (issues #40, #45, #46), it's better to rely on a regular method
+  void init(JsonBuffer *buffer) {
+    _buffer = buffer;
+    _firstNode = NULL;
+  }
+
   node_type *createNode() {
     if (!_buffer) return NULL;
-    void *ptr = _buffer->alloc(sizeof(node_type));
-    return ptr ? new (ptr) node_type() : NULL;
+    return _buffer->create<node_type>();
   }
 
   void addNode(node_type *nodeToAdd) {

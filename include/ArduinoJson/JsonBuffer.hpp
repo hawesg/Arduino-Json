@@ -71,6 +71,17 @@ class JsonBuffer {
   // Return a pointer to the allocated memory or NULL if allocation fails.
   virtual void *alloc(size_t size) = 0;
 
+  // Allocate and initialize a class.
+  // Return a pointer to the allocated instance or NULL if allocation fails.
+  template <typename T>
+  T *create() {
+    T *p = static_cast<T *>(alloc(sizeof(T)));
+    // call init() instead of the placement new because it turned out to be a
+    // portability headache (issues #40, #45 and #46)
+    if (p) p->init(this);
+    return p;
+  }
+
   // Default value of nesting limit of parseArray() and parseObject().
   //
   // The nesting limit is a contain on the level of nesting allowed in the JSON

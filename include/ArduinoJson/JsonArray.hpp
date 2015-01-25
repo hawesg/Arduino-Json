@@ -78,9 +78,9 @@ class JsonArray : public Internals::JsonPrintable<JsonArray>,
   void writeTo(Internals::JsonWriter &writer) const;
 
  private:
-  // Create an empty JsonArray attached to the specified JsonBuffer.
-  explicit JsonArray(JsonBuffer *buffer)
-      : Internals::List<JsonVariant>(buffer) {}
+  // Construction if forbidden, it must be done via JsonBuffer.
+  // Only the "invalid" instance is created with this contstructor.
+  JsonArray() { init(NULL); }
 
   // The instance returned by JsonArray::invalid()
   static JsonArray _invalid;

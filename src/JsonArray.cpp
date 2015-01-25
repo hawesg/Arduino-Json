@@ -12,7 +12,7 @@
 using namespace ArduinoJson;
 using namespace ArduinoJson::Internals;
 
-JsonArray JsonArray::_invalid(NULL);
+JsonArray JsonArray::_invalid;
 
 JsonVariant &JsonArray::at(int index) const {
   node_type *node = _firstNode;

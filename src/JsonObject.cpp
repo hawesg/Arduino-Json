@@ -8,7 +8,6 @@
 
 #include <string.h>  // for strcmp
 
-#include "../include/ArduinoJson/Internals/PlacementNew.hpp"
 #include "../include/ArduinoJson/Internals/StringBuilder.hpp"
 #include "../include/ArduinoJson/JsonArray.hpp"
 #include "../include/ArduinoJson/JsonBuffer.hpp"
@@ -16,7 +15,7 @@
 using namespace ArduinoJson;
 using namespace ArduinoJson::Internals;
 
-JsonObject JsonObject::_invalid(NULL);
+JsonObject JsonObject::_invalid;
 
 JsonVariant &JsonObject::at(const char *key) {
   node_type *node = getNodeAt(key);

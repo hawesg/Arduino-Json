@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <stddef.h>  // for NULL
+#include "../JsonBuffer.hpp"
 
 namespace ArduinoJson {
 namespace Internals {
@@ -14,11 +14,15 @@ namespace Internals {
 // A node for a singly-linked list.
 // Used by List<T> and its iterators.
 template <typename T>
-struct ListNode {
-  ListNode() : next(NULL) {}
+class ListNode {
+  friend class ArduinoJson::JsonBuffer;
 
+ public:
   ListNode<T>* next;
   T content;
+
+ private:
+  void init(JsonBuffer*) { next = NULL; }
 };
 }
 }
