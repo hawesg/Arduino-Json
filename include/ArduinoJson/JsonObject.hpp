@@ -31,9 +31,6 @@ class JsonBuffer;
 class JsonObject : public Internals::JsonPrintable<JsonObject>,
                    public Internals::ReferenceType,
                    public Internals::List<JsonPair> {
-  // JsonBuffer is a friend because it needs to call the private constructor.
-  friend class JsonBuffer;
-
  public:
   typedef const char *key_type;
   typedef JsonPair value_type;
@@ -78,7 +75,7 @@ class JsonObject : public Internals::JsonPrintable<JsonObject>,
   // This is a shortcut for JsonBuffer::createObject() and JsonObject::add().
   JsonObject &createNestedObject(key_type key);
 
-  // Tells weither the specified key is present and associated with a value.
+  // Check if the specified key is present and associated with a value.
   bool containsKey(key_type key) const { return at(key).success(); }
 
   // Removes the specified key and the associated value.

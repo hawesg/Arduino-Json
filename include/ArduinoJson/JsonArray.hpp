@@ -31,9 +31,6 @@ class JsonBuffer;
 class JsonArray : public Internals::JsonPrintable<JsonArray>,
                   public Internals::ReferenceType,
                   public Internals::List<JsonVariant> {
-  // JsonBuffer is a friend because it needs to call the private constructor.
-  friend class JsonBuffer;
-
  public:
   // Returns the JsonVariant at the specified index (synonym for operator[])
   JsonVariant &at(int index) const;
