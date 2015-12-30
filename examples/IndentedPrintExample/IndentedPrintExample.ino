@@ -10,6 +10,9 @@ using namespace ArduinoJson::Internals;
 
 void setup() {
   Serial.begin(9600);
+  while (!Serial) {
+    // wait serial port initialization
+  }
 
   IndentedPrint serial(Serial);
   serial.setTabSize(4);

@@ -6,13 +6,8 @@
 
 #pragma once
 
-#ifndef ARDUINO
-
-#include <string>
-typedef std::string String;
-
-#else
-
-#include <WString.h>
-
-#endif
+namespace ArduinoJson {
+namespace Internals {
+typedef long JsonInteger;
+}
+}
